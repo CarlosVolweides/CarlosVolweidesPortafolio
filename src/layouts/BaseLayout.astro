@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { DEFAULT_LANG, LOCALE_TAG, type Lang } from '../i18n/ui';
+import { DEFAULT_LANG, LOCALE_TAG, LOCALES, type Lang } from '../i18n/ui';
 import { useTranslations, localizePath, stripLangPrefix } from '../i18n/utils';
 
 interface Props {
@@ -20,13 +20,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
 // hreflang needs one URL per locale for the same logical page.
 const basePath = stripLangPrefix(Astro.url.pathname);
-const alternates = (['es', 'en'] as const).map((l) => ({
+const alternates = LOCALES.map((l) => ({
   lang: l,
   href: new URL(localizePath(l, basePath), Astro.site).href,
 }));
 const xDefault = new URL(localizePath(DEFAULT_LANG, basePath), Astro.site).href;
 
-const otherLang: Lang = lang === 'es' ? 'en' : 'es';
+const otherLangs = LOCALES.filter((l) => l !== lang);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -71,7 +71,9 @@ const jsonLd = {
     <meta property="og:image:alt" content={pageTitle} />
     <meta property="og:site_name" content="Carlos Volweides — Portfolio" />
     <meta property="og:locale" content={LOCALE_TAG[lang].replace('-', '_')} />
-    <meta property="og:locale:alternate" content={LOCALE_TAG[otherLang].replace('-', '_')} />
+    {otherLangs.map(l => (
+      <meta property="og:locale:alternate" content={LOCALE_TAG[l].replace('-', '_')} />
+    ))}
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

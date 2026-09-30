@@ -39,10 +39,12 @@ export function stripLangPrefix(pathname: string): string {
   return `/${rest.join('/')}`;
 }
 
-/** The same page in the other language. */
-export function alternatePath(lang: Lang, pathname: string): string {
-  const other: Lang = lang === 'es' ? 'en' : 'es';
-  return localizePath(other, stripLangPrefix(pathname));
+/** The same page in every locale, keyed by locale. Drives LangToggle and hreflang. */
+export function alternatePaths(pathname: string): Record<Lang, string> {
+  const base = stripLangPrefix(pathname);
+  return Object.fromEntries(
+    LOCALES.map((l) => [l, localizePath(l, base)])
+  ) as Record<Lang, string>;
 }
 
 /** Command palette entries, localized. Built server-side so the island stays dumb. */

@@ -28,6 +28,13 @@ const TIPO_LABELS: Record<string, string> = {
   networking: 'Networking / Otro',
 };
 
+// Which language the visitor was reading the site in, for the notification email.
+const LANG_LABELS: Record<string, string> = {
+  es: 'Español',
+  en: 'Inglés',
+  pt: 'Portugués',
+};
+
 interface ContactBody {
   nombre: string;
   email: string;
@@ -69,7 +76,7 @@ function buildEmailHtml(body: ContactBody): string {
   const empresa = body.empresa.trim() ? escapeHtml(body.empresa.trim()) : '';
   const mensaje = escapeHtml(body.mensaje.trim());
   const tipoLabel = TIPO_LABELS[body.tipo];
-  const idioma = body.lang === 'en' ? 'Inglés' : 'Español';
+  const idioma = LANG_LABELS[body.lang] ?? LANG_LABELS.es;
 
   return `
     <div style="font-family: sans-serif; max-width: 560px; margin: 0 auto;">
@@ -127,7 +134,7 @@ export const POST: APIRoute = async ({ request }) => {
     tipo: body.tipo!,
     empresa: body.empresa?.trim() ?? '',
     mensaje: body.mensaje!.trim(),
-    lang: body.lang === 'en' ? 'en' : 'es',
+    lang: body.lang && body.lang in LANG_LABELS ? body.lang : 'es',
   };
 
   const apiKey = import.meta.env.RESEND_API_KEY;

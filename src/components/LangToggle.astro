@@ -1,6 +1,6 @@
 ---
-import type { Lang } from '../i18n/ui';
-import { useTranslations, alternatePath } from '../i18n/utils';
+import { LOCALES, type Lang } from '../i18n/ui';
+import { useTranslations, alternatePaths, fmt } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -9,17 +9,25 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-// Same page, other language. The cookie is written on click so a manual choice
-// always outranks the middleware's Accept-Language detection on later visits.
-const href = alternatePath(lang, Astro.url.pathname);
-const other: Lang = lang === 'es' ? 'en' : 'es';
+// Same page in every locale. The cookie is written on click so a manual choice
+// always outranks the middleware's Accept-Language / geo detection on later visits.
+const paths = alternatePaths(Astro.url.pathname);
 ---
 
-<a class="lang-toggle" href={href} data-lang={other} aria-label={t.header.switchTo}>
-  <span class:list={['lang-opt', { active: lang === 'es' }]}>ES</span>
-  <span class="lang-sep">/</span>
-  <span class:list={['lang-opt', { active: lang === 'en' }]}>EN</span>
-</a>
+<div class="lang-toggle">
+  {LOCALES.map((l, i) => (
+    <>
+      {i > 0 && <span class="lang-sep">/</span>}
+      <a
+        class:list={['lang-opt', { active: l === lang }]}
+        href={paths[l]}
+        data-lang={l}
+        aria-current={l === lang ? 'true' : undefined}
+        aria-label={fmt(t.header.switchTo, { lang: t.header.langNames[l] })}
+      >{l.toUpperCase()}</a>
+    </>
+  ))}
+</div>
 
 <style>
   .lang-toggle {
@@ -36,15 +44,18 @@ const other: Lang = lang === 'es' ? 'en' : 'es';
   }
   .lang-toggle:hover { border-color: var(--fg-dim); }
   .lang-sep { color: var(--line-strong); }
+  .lang-opt { color: inherit; transition: color 0.15s; }
+  .lang-opt:hover { color: var(--fg); }
   .lang-opt.active { color: var(--accent); }
 </style>
 
 <script>
-  const toggle = document.querySelector<HTMLAnchorElement>('.lang-toggle');
-  toggle?.addEventListener('click', () => {
-    const lang = toggle.dataset.lang;
-    if (lang) {
-      document.cookie = `lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
-    }
+  document.querySelectorAll<HTMLAnchorElement>('.lang-toggle .lang-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const lang = opt.dataset.lang;
+      if (lang) {
+        document.cookie = `lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+      }
+    });
   });
 </script>

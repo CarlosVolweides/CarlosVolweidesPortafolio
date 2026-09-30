@@ -1,4 +1,4 @@
-export const LOCALES = ['es', 'en'] as const;
+export const LOCALES = ['es', 'en', 'pt'] as const;
 export type Lang = (typeof LOCALES)[number];
 
 export const DEFAULT_LANG: Lang = 'es';
@@ -7,6 +7,7 @@ export const DEFAULT_LANG: Lang = 'es';
 export const LOCALE_TAG: Record<Lang, string> = {
   es: 'es-VE',
   en: 'en-US',
+  pt: 'pt-BR',
 };
 
 /**
@@ -57,7 +58,9 @@ const es = {
   header: {
     cmdk: 'Abrir paleta de comandos',
     mobileNav: 'Navegación por secciones',
-    switchTo: 'Ver en inglés',
+    /** `{lang}` se rellena con el nombre del idioma destino (langNames). */
+    switchTo: 'Ver en {lang}',
+    langNames: { es: 'español', en: 'inglés', pt: 'portugués' } as Record<Lang, string>,
   },
 
   hero: {
@@ -277,7 +280,8 @@ const en: Dict = {
   header: {
     cmdk: 'Open command palette',
     mobileNav: 'Section navigation',
-    switchTo: 'View in Spanish',
+    switchTo: 'View in {lang}',
+    langNames: { es: 'Spanish', en: 'English', pt: 'Portuguese' },
   },
 
   hero: {
@@ -461,4 +465,222 @@ const en: Dict = {
   },
 };
 
-export const ui: Record<Lang, Dict> = { es, en };
+const pt: Dict = {
+  seo: {
+    homeTitle: 'Carlos Volweides — Engenheiro Fullstack',
+    homeDescription:
+      'Engenheiro fullstack especializado em TypeScript, React, Next.js, Astro, Python (FastAPI), arquitetura limpa, DDD e integração de LLMs. Baseado em Caracas, Venezuela.',
+    projectsTitle: 'Projetos — Carlos Volweides',
+    projectsDescription:
+      'Projetos selecionados de Carlos Volweides: Frida, Atlas Protocol, Repositorio UGMA, Luxdata.',
+    jobTitle: 'Engenheiro Fullstack',
+  },
+
+  nav: {
+    home: 'início',
+    about: 'sobre mim',
+    stack: 'stack',
+    experience: 'experiência',
+    projects: 'projetos',
+    contact: 'contato',
+  },
+
+  navShort: {
+    home: 'início',
+    about: 'sobre',
+    stack: 'stack',
+    experience: 'exp',
+    projects: 'projetos',
+    contact: 'contato',
+  },
+
+  header: {
+    cmdk: 'Abrir paleta de comandos',
+    mobileNav: 'Navegação por seções',
+    switchTo: 'Ver em {lang}',
+    langNames: { es: 'espanhol', en: 'inglês', pt: 'português' },
+  },
+
+  hero: {
+    location: 'Localização',
+    locationValue: 'Caracas, VE',
+    role: 'Cargo',
+    roleValue: 'Engenheiro Fullstack',
+    status: 'Status',
+    statusValue: '● Disponível para trabalhar',
+    localTime: 'Hora local',
+    taglineRole: 'Engenheiro Fullstack',
+    taglineLead: 'Construo aplicações web & mobile end-to-end com ênfase em',
+    taglineArch: 'arquitetura limpa',
+    taglineDdd: 'DDD',
+    taglineLlm: 'LLMs',
+    taglineJoin: 'e integração de',
+    ctaProjects: 'Ver projetos',
+    ctaContact: 'Vamos conversar',
+    scroll: 'scroll',
+    prompt: './vamos-construir-algo',
+  },
+
+  about: {
+    label: 'sobre mim',
+    headingLine1: 'Construo software',
+    headingLine2: 'de ponta a ponta.',
+    based: 'Localização',
+    basedValue: 'Caracas, VE',
+    edu: 'Formação',
+    eduValue: 'UGMA · Eng. da Computação',
+    years: 'Anos',
+    yearsValue: '3+ construindo',
+    mode: 'Modo',
+    modeValue: 'Remoto · Async',
+    p1Lead: 'desenvolvedor fullstack',
+    p1: 'com experiência construindo aplicações web e mobile end-to-end. Trabalho principalmente com',
+    p1Tail: 'e',
+    p1Python: '(FastAPI).',
+    p1Prefix: 'Sou',
+    p2Lead: 'APIs escaláveis',
+    p2Prefix: 'Meu foco está no design e na implementação de',
+    p2: 'aplicando arquitetura limpa, Domain-Driven Design e comunicação baseada em eventos. Já participei de sistemas de logística, faturamento e plataformas multi-aplicação que conectam web e mobile.',
+    p3Prefix:
+      'Trabalho bem em equipe sob Scrum, mas também entrego projetos completos de forma autônoma — dos requisitos até o deploy. Me interessam sistemas escaláveis e a integração de',
+    p3Lead: 'LLMs',
+    p3: 'em produtos reais.',
+  },
+
+  stack: {
+    label: 'stack',
+    languages: 'Linguagens',
+    frontend: 'Frontend',
+    backend: 'Backend',
+    data: 'Dados',
+    architecture: 'Arquitetura',
+    ai: 'IA / LLM',
+    practices: 'Práticas',
+    tooling: 'Ferramentas',
+  },
+
+  experience: {
+    label: 'experiência',
+    role: 'Desenvolvedor Fullstack',
+    date: '2025 — 2026',
+    summary:
+      'Construí aplicações web e mobile end-to-end em plataformas de logística, sistemas de faturamento e integrações multi-app. Remoto, para Córdoba, Argentina.',
+    bullets: [
+      'Projetei e implementei APIs escaláveis em Python (FastAPI) aplicando arquitetura limpa, DDD e comunicação baseada em eventos.',
+      'Implementei interfaces a partir do Figma e cuidei da integração full-stack, dos requisitos funcionais ao deploy em develop / staging / production.',
+      'Entreguei o Frida sozinho, de ponta a ponta: 12 bounded contexts, 356 testes com pytest e 38 E2E com Playwright.',
+    ],
+  },
+
+  projects: {
+    label: 'trabalhos selecionados',
+    allLabel: 'todos os projetos',
+    caseStudy: 'Ver estudo de caso',
+    caseStudyAria: 'Ver estudo de caso: {title}',
+    back: '← projetos',
+    role: 'Cargo',
+    demo: 'Ver demo',
+    repo: 'Ver repo',
+  },
+
+  contact: {
+    label: 'contato',
+    headingLine1: 'Vamos construir',
+    headingLine2: 'algo real',
+    location: 'Localização',
+    locationValue: 'Caracas · Venezuela',
+    status: 'Status',
+    statusValue: '● Disponível para trabalhar',
+  },
+
+  footer: {
+    rights: 'Todos os direitos reservados.',
+  },
+
+  cmdk: {
+    goto: 'Ir para {label}',
+    email: 'Enviar email',
+    github: 'Abrir GitHub',
+    linkedin: 'Abrir LinkedIn',
+    allProjects: 'Todos os projetos',
+    placeholder: '$ buscar nav · projetos · contato...',
+    noResults: 'sem resultados',
+    navigate: 'navegar',
+    select: 'selecionar',
+    close: 'fechar',
+  },
+
+  form: {
+    title: 'Formulário de contato',
+    name: 'Nome',
+    email: 'Email',
+    reason: 'Motivo',
+    company: 'Empresa',
+    message: 'Mensagem',
+    selectOption: 'Selecione uma opção',
+    tipoTrabajo: 'Oferta de emprego',
+    tipoFreelance: 'Projeto freelance',
+    tipoNetworking: 'Networking / Outro',
+    submit: 'Enviar mensagem',
+    submitting: 'Enviando...',
+    privacy: {
+      intro: 'Seu email é usado apenas para te responder.',
+      showLabel: 'Ver política de privacidade',
+      hideLabel: 'Ocultar',
+      title: 'Política de privacidade',
+      body1:
+        'Ao enviar este formulário, você compartilha seu nome e email comigo (Carlos Volweides) com o único propósito de responder à sua mensagem.',
+      body2:
+        'Não vendo, compartilho nem uso seus dados para qualquer outra finalidade. As mensagens são processadas pelo Resend (resend.com) para o envio do email e são apagadas automaticamente em 30 dias.',
+      contact: 'Para qualquer dúvida:',
+    },
+    tipos: {
+      trabajo: {
+        companyLabel: 'Empresa contratante',
+        companyPlaceholder: 'Ex: Google, startup, agência...',
+        messageHint:
+          'Ex: empresa, stack tecnológico, modalidade (remoto/híbrido) e faixa salarial, se puder compartilhar.',
+      },
+      freelance: {
+        companyLabel: 'Sua empresa ou projeto',
+        companyPlaceholder: 'Ex: Minha startup, Projeto X...',
+        messageHint:
+          'Ex: descrição do projeto, stack preferida, prazo aproximado e orçamento.',
+      },
+      networking: {
+        companyLabel: 'Empresa ou organização',
+        companyPlaceholder: 'Opcional',
+        messageHint: 'Conte sobre você ou sobre o que gostaria de conversar.',
+      },
+    },
+    validation: {
+      nameRequired: 'Informe seu nome.',
+      emailRequired: 'Informe seu email.',
+      emailInvalid: 'Informe um email válido.',
+      tipoRequired: 'Selecione uma opção.',
+      messageRequired: 'Escreva sua mensagem.',
+      messageTooLong: 'A mensagem não pode passar de {max} caracteres.',
+    },
+    status: {
+      errorTitle: 'Não foi possível enviar',
+      successTitle: 'Mensagem enviada',
+      successSubtitle: 'Respondo em menos de 24 horas.',
+      networkError: 'Ocorreu um erro de rede. Tente novamente.',
+    },
+    errors: {
+      NAME_REQUIRED: 'O nome é obrigatório.',
+      EMAIL_REQUIRED: 'O email é obrigatório.',
+      EMAIL_INVALID: 'O email não tem um formato válido.',
+      TIPO_INVALID: 'Selecione um motivo de contato válido.',
+      MESSAGE_REQUIRED: 'A mensagem é obrigatória.',
+      MESSAGE_TOO_LONG: 'A mensagem não pode passar de {max} caracteres.',
+      BAD_JSON: 'A requisição não tem um formato válido.',
+      SERVER_ERROR: 'Erro interno do servidor.',
+      SEND_FAILED: 'Não foi possível enviar a mensagem. Tente novamente.',
+      UNKNOWN: 'Algo deu errado. Tente novamente.',
+    },
+  },
+};
+
+export const ui: Record<Lang, Dict> = { es, en, pt };
+

@@ -12,7 +12,7 @@ export default defineConfig({
   // Without it the locale redirect never runs in production.
   adapter: vercel({ edgeMiddleware: true }),
   i18n: {
-    locales: ['es', 'en'],
+    locales: ['es', 'en', 'pt'],
     defaultLocale: 'es',
     routing: { prefixDefaultLocale: false },
   },
@@ -23,7 +23,7 @@ export default defineConfig({
     sitemap({
       i18n: {
         defaultLocale: 'es',
-        locales: { es: 'es-VE', en: 'en-US' },
+        locales: { es: 'es-VE', en: 'en-US', pt: 'pt-BR' },
       },
     }),
     react(),

@@ -15,6 +15,20 @@ const ES_COUNTRIES = new Set([
   'CR', 'PA', 'GT', 'HN', 'SV', 'NI', 'DO', 'CU', 'PR', 'GQ',
 ]);
 
+/** Countries where Portuguese is the majority language. Brazil is the target audience. */
+const PT_COUNTRIES = new Set([
+  'BR', 'PT', 'AO', 'MZ', 'CV', 'GW', 'ST', 'TL', 'MO',
+]);
+
+/** ISO-3166 alpha-2 → the locale that country most likely reads. */
+function langFromCountry(country: string | null): Lang | null {
+  if (!country) return null;
+  const code = country.toUpperCase();
+  if (ES_COUNTRIES.has(code)) return 'es';
+  if (PT_COUNTRIES.has(code)) return 'pt';
+  return 'en';
+}
+
 const BOT_RE = /bot|crawl|spider|slurp|gptbot|claude|anthropic|facebookexternalhit|embedly|quora|pinterest|bingpreview/i;
 
 const COOKIE = 'lang';
@@ -77,10 +91,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const ua = context.request.headers.get('user-agent') ?? '';
   if (BOT_RE.test(ua)) return next();
 
-  // Geo is only a fallback: Accept-Language states what the visitor reads,
-  // the IP country merely suggests it. Absent both, keep the default locale.
-  const country = context.request.headers.get('x-vercel-ip-country');
-  const geoLang: Lang | null = country ? (ES_COUNTRIES.has(country) ? 'es' : 'en') : null;
+  // Geo is a fallback: Accept-Language states what the visitor reads, the IP
+  // country only suggests it. Absent both, keep the default locale.
+  // `x-vercel-ip-country` is set by Vercel's edge; it is absent in `npm run dev`.
+  const geoLang = langFromCountry(context.request.headers.get('x-vercel-ip-country'));
 
   const cookieLang = readCookie(context.request.headers.get('cookie'), COOKIE);
   const preferred: Lang | null =
