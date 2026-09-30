@@ -30,11 +30,11 @@ src/
 │   ├── ProjectsPage.astro
 │   └── ProjectPage.astro
 ├── i18n/
-│   ├── ui.ts             — es/en dictionaries + SECTIONS (ids ↔ label keys)
+│   ├── ui.ts             — es/en/pt dictionaries + SECTIONS (ids ↔ label keys)
 │   ├── visuals.ts        — per-project ASCII art + asciiCols()
 │   └── utils.ts          — useTranslations, localizePath, getProjects, getCmdkItems
 ├── content/
-│   └── projects/{es,en}/ — one .md per project per locale (same slugs)
+│   └── projects/{es,en,pt}/ — one .md per project per locale (same slugs)
 ├── content.config.ts     — Content Collection schema (glob loader)
 ├── layouts/
 │   └── BaseLayout.astro  — <head>: SEO, hreflang, og:locale, JSON-LD, fonts
@@ -44,6 +44,8 @@ src/
 │   ├── projects/{index,[slug]}.astro
 │   ├── en/index.astro
 │   ├── en/projects/{index,[slug]}.astro
+│   ├── pt/index.astro
+│   ├── pt/projects/{index,[slug]}.astro
 │   └── api/contact.ts             — prerender = false
 └── styles/
     └── global.css        — CSS vars design system + all component styles
@@ -53,9 +55,11 @@ Pages are thin wrappers: they set `lang` and render the matching `*Page.astro` c
 
 ## i18n
 
-Spanish is the default locale and lives at the root (`/`, `/projects`, `/projects/<slug>`). English lives under `/en`. Configured via Astro's native `i18n` block with `prefixDefaultLocale: false`.
+Spanish is the default locale and lives at the root (`/`, `/projects`, `/projects/<slug>`). English lives under `/en`, Brazilian Portuguese under `/pt`. Configured via Astro's native `i18n` block with `prefixDefaultLocale: false`.
 
-**All user-facing copy lives in `src/i18n/ui.ts`.** `es` is the source of truth for the shape — `en` is typed as `Dict`, so a missing key fails the build. Never hardcode a string in a component.
+Nothing is hardcoded to two locales: `LOCALES` in `src/i18n/ui.ts` drives the `LangToggle`, the `hreflang` block and `og:locale:alternate` in `BaseLayout`, and `alternatePaths()` in `src/i18n/utils.ts`.
+
+**All user-facing copy lives in `src/i18n/ui.ts`.** `es` is the source of truth for the shape — `en` and `pt` are typed as `Dict`, so a missing key fails the build. Never hardcode a string in a component.
 
 Things that are deliberately **not** translated: `STACK[].items` (they double as `STACK_ICONS` keys), section ids (`home`/`about`/`stack`/`work`/`projects`/`contact`), the `status` enum, and the ASCII art in `src/i18n/visuals.ts` (hand-tuned column widths).
 
@@ -65,15 +69,17 @@ Client-side code can't read Astro frontmatter, so strings are injected: `<script
 
 Vercel serves prerendered files straight off the filesystem — its route config puts `{"handle": "filesystem"}` ahead of every middleware route. A static `/` would therefore **never reach `src/middleware.ts`**, and locale detection would silently no-op in production while working fine in `npm run dev`. Setting `prerender = false` on `src/pages/index.astro` is what puts `/` behind the middleware. Don't "optimize" it back to static without replacing the detection mechanism.
 
-Detection order (first visit only, `/` only): `lang` cookie → `Accept-Language` → `x-vercel-ip-country`. Redirects are 302 with `Vary`, and known crawler user-agents are skipped so both locales get indexed. A manual `LangToggle` click writes the cookie, which outranks detection from then on.
+Detection order (first visit only, `/` only): `lang` cookie → `Accept-Language` → `x-vercel-ip-country`. The IP country maps through `langFromCountry()` in `src/middleware.ts`: `ES_COUNTRIES` → `es`, `PT_COUNTRIES` (BR, PT, AO, MZ, …) → `pt`, everything else → `en`. Redirects are 302 with `Vary`, and known crawler user-agents are skipped so every locale gets indexed. A manual `LangToggle` click writes the cookie, which outranks detection from then on.
+
+`x-vercel-ip-country` only exists on Vercel's edge, so geo detection is a no-op in `npm run dev` — `Accept-Language` is what you'll be testing locally.
 
 ## Content
 
 **Portfolio copy** (bio, experience, stack): `src/i18n/ui.ts`. `STACK` and `STACK_ICONS` are at the top of `src/components/HomePage.astro`; the per-project ASCII art lives in `src/i18n/visuals.ts`.
 
-**To add/edit a project**: edit `src/content/projects/<lang>/<slug>.md` — the same slug must exist in **both** `es/` and `en/`. Fields are defined in `src/content.config.ts`. The `idx` field controls sort order and display numbering.
+**To add/edit a project**: edit `src/content/projects/<lang>/<slug>.md` — the same slug must exist in **every** locale folder (`es/`, `en/`, `pt/`). Fields are defined in `src/content.config.ts`. The `idx` field controls sort order and display numbering.
 
-`getProjects(lang)` (in `src/i18n/utils.ts`) filters the collection by the locale prefix in the entry `id` and exposes a clean `slug`. Always use it — a bare `getCollection('projects')` returns every file across both locales and inflates the project counter.
+`getProjects(lang)` (in `src/i18n/utils.ts`) filters the collection by the locale prefix in the entry `id` and exposes a clean `slug`. Always use it — a bare `getCollection('projects')` returns every file across every locale and inflates the project counter.
 
 ## Contact form
 

@@ -49,6 +49,7 @@ Available for remote work as of August 2026.
 This portfolio is built with Astro, TypeScript, and Tailwind CSS, deployed on Vercel.
 Source code: available on request.
 
-Bilingual: Spanish is served at the root (/, /projects, /projects/<slug>) and English
-under the /en prefix (/en, /en/projects, /en/projects/<slug>). Both languages carry the
-same content and are linked via hreflang.
+Trilingual: Spanish is served at the root (/, /projects, /projects/<slug>), English under
+the /en prefix (/en, /en/projects, /en/projects/<slug>) and Brazilian Portuguese under the
+/pt prefix (/pt, /pt/projects, /pt/projects/<slug>). All three languages carry the same
+content and are linked via hreflang.
