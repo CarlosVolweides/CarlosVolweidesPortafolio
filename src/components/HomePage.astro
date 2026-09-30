@@ -6,7 +6,7 @@ import CmdK from './CmdK.tsx';
 import ContactForm from './ContactForm.astro';
 import ProjectCard from './ProjectCard.astro';
 import { LOCALE_TAG, type Lang } from '../i18n/ui';
-import { useTranslations, localizePath, getProjects, getCmdkItems } from '../i18n/utils';
+import { useTranslations, localizePath, getProjects, getCmdkItems, CV_PATH } from '../i18n/utils';
 import {
   Code2, Braces, Cpu, FileCode,
   Atom, Layers, Smartphone, Zap,
@@ -123,6 +123,9 @@ const EXPERIENCE = [
         </a>
         <a href="#contact" class="btn">
           {t.hero.ctaContact} <span class="arrow">↗</span>
+        </a>
+        <a href={CV_PATH} class="btn" download="Carlos-Volweides-CV.pdf">
+          {t.hero.ctaCv} <span class="arrow">↓</span>
         </a>
       </div>
 

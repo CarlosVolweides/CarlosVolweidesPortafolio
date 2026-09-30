@@ -57,6 +57,8 @@ const es = {
 
   header: {
     cmdk: 'Abrir paleta de comandos',
+    cv: 'CV',
+    cvAria: 'Descargar CV (PDF)',
     mobileNav: 'Navegación por secciones',
     /** `{lang}` se rellena con el nombre del idioma destino (langNames). */
     switchTo: 'Ver en {lang}',
@@ -79,6 +81,7 @@ const es = {
     taglineJoin: 'e integración de',
     ctaProjects: 'Ver proyectos',
     ctaContact: 'Hablemos',
+    ctaCv: 'Descargar CV',
     scroll: 'scroll',
     prompt: './construyamos-algo',
   },
@@ -161,6 +164,7 @@ const es = {
 
   cmdk: {
     goto: 'Ir a {label}',
+    cv: 'Descargar CV',
     email: 'Enviar email',
     github: 'Abrir GitHub',
     linkedin: 'Abrir LinkedIn',
@@ -279,6 +283,8 @@ const en: Dict = {
 
   header: {
     cmdk: 'Open command palette',
+    cv: 'CV',
+    cvAria: 'Download CV (PDF)',
     mobileNav: 'Section navigation',
     switchTo: 'View in {lang}',
     langNames: { es: 'Spanish', en: 'English', pt: 'Portuguese' },
@@ -300,6 +306,7 @@ const en: Dict = {
     taglineJoin: 'and the integration of',
     ctaProjects: 'View projects',
     ctaContact: 'Get in touch',
+    ctaCv: 'Download CV',
     scroll: 'scroll',
     prompt: './let-s-build-something',
   },
@@ -382,6 +389,7 @@ const en: Dict = {
 
   cmdk: {
     goto: 'Go to {label}',
+    cv: 'Download CV',
     email: 'Send email',
     github: 'Open GitHub',
     linkedin: 'Open LinkedIn',
@@ -496,6 +504,8 @@ const pt: Dict = {
 
   header: {
     cmdk: 'Abrir paleta de comandos',
+    cv: 'CV',
+    cvAria: 'Baixar CV (PDF)',
     mobileNav: 'Navegação por seções',
     switchTo: 'Ver em {lang}',
     langNames: { es: 'espanhol', en: 'inglês', pt: 'português' },
@@ -517,6 +527,7 @@ const pt: Dict = {
     taglineJoin: 'e integração de',
     ctaProjects: 'Ver projetos',
     ctaContact: 'Vamos conversar',
+    ctaCv: 'Baixar CV',
     scroll: 'scroll',
     prompt: './vamos-construir-algo',
   },
@@ -599,6 +610,7 @@ const pt: Dict = {
 
   cmdk: {
     goto: 'Ir para {label}',
+    cv: 'Baixar CV',
     email: 'Enviar email',
     github: 'Abrir GitHub',
     linkedin: 'Abrir LinkedIn',

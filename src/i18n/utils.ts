@@ -2,6 +2,9 @@ import { getCollection } from 'astro:content';
 import { ui, DEFAULT_LANG, LOCALES, SECTIONS, type Dict, type Lang } from './ui';
 import type { CmdkItem } from '../components/CmdK';
 
+/** Un solo PDF para todos los idiomas; vive en `public/cv/`. */
+export const CV_PATH = '/cv/carlos-volweides-cv.pdf';
+
 export function isLang(value: unknown): value is Lang {
   return LOCALES.includes(value as Lang);
 }
@@ -57,6 +60,7 @@ export function getCmdkItems(lang: Lang): CmdkItem[] {
       hint: s.num,
       href: `${home}#${s.id}`,
     })),
+    { label: t.cmdk.cv, hint: 'cv', href: CV_PATH },
     { label: t.cmdk.email, hint: 'mail', href: 'mailto:carlos.volweides@gmail.com' },
     { label: t.cmdk.github, hint: 'gh', href: 'https://github.com/CarlosVolweides' },
     { label: t.cmdk.linkedin, hint: 'in', href: 'https://linkedin.com/in/carlos-volweides' },
