@@ -8,6 +8,25 @@ statusLabel: Shipped
 featured: true
 date: 2026-07-01
 idx: '01'
+media:
+  - type: image
+    src: /media/frida/1.png
+    alt: Frida sign-in screen with Institutional / Operational switch
+  - type: image
+    src: /media/frida/2.png
+    alt: Resident grid with status and floor filters
+  - type: image
+    src: /media/frida/3.png
+    alt: Medication dose schedule with statuses and caregiver assignment
+  - type: image
+    src: /media/frida/4.png
+    alt: Scheduled group activities with their participants
+  - type: image
+    src: /media/frida/5.png
+    alt: Rooms overview with total occupancy, status and beds per room
+  - type: image
+    src: /media/frida/6.png
+    alt: Morning, afternoon and night shift management with assigned staff
 ---
 
 ## Overview

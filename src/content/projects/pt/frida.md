@@ -8,6 +8,25 @@ statusLabel: Entregue
 featured: true
 date: 2026-07-01
 idx: '01'
+media:
+  - type: image
+    src: /media/frida/1.png
+    alt: Tela de acesso do Frida com seletor Institucional / Operacional
+  - type: image
+    src: /media/frida/2.png
+    alt: Lista de residentes em grade com filtros por status e andar
+  - type: image
+    src: /media/frida/3.png
+    alt: Agenda de doses de medicação com status e atribuição de responsáveis
+  - type: image
+    src: /media/frida/4.png
+    alt: Atividades em grupo programadas com seus participantes
+  - type: image
+    src: /media/frida/5.png
+    alt: Quartos com ocupação total, status e camas por quarto
+  - type: image
+    src: /media/frida/6.png
+    alt: Gestão de turnos de manhã, tarde e noite com a equipe atribuída
 ---
 
 ## Visão geral
