@@ -6,7 +6,7 @@ import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  site: 'https://carlosvolweides.vercel.app',
+  site: 'https://carlosvolweides.dev',
   output: 'server',
   // edgeMiddleware puts src/middleware.ts in front of the prerendered pages.
   // Without it the locale redirect never runs in production.

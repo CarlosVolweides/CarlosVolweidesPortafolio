@@ -13,4 +13,4 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
-Sitemap: https://carlosvolweides.vercel.app/sitemap-index.xml
+Sitemap: https://carlosvolweides.dev/sitemap-index.xml

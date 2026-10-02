@@ -2,7 +2,7 @@
 
 Sitio personal / portafolio. Astro 6 + TypeScript + Tailwind CSS 4 + React (solo como isla para el Cmd+K).
 
-Producción: https://carlosvolweides.vercel.app
+Producción: https://carlosvolweides.dev
 
 ## Stack
 
