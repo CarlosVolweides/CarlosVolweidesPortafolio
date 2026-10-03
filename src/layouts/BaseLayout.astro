@@ -49,6 +49,8 @@ const jsonLd = {
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonical} />
+    <!-- Google Tag Manager -->
+    <Analytics/>
 
     <!-- Alternate locales -->
     {alternates.map(a => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
