@@ -3,7 +3,7 @@ import { Download } from 'lucide-react';
 import LangToggle from './LangToggle.astro';
 import MobileNav from './MobileNav.astro';
 import { SECTIONS, type Lang, type SectionKey } from '../i18n/ui';
-import { useTranslations, localizePath, CV_PATH } from '../i18n/utils';
+import { useTranslations, localizePath, cvPath, cvFilename } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -32,8 +32,8 @@ const home = localizePath(lang, '/');
   <div class="topbar-right">
     <a
       class="cv-btn"
-      href={CV_PATH}
-      download="Carlos-Volweides-CV.pdf"
+      href={cvPath(lang)}
+      download={cvFilename(lang)}
       aria-label={t.header.cvAria}
     >
       <Download size={12} strokeWidth={2} aria-hidden="true" />

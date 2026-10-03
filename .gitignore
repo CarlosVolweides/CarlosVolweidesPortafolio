@@ -28,4 +28,4 @@ npm-debug.log*
 .claude/
 .vercel
 
-cv/
+/cv/
